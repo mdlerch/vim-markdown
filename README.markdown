@@ -1,3 +1,5 @@
+Fork of tpope's markdown runtime files with (some) LaTeX support
+
 # Vim Markdown runtime files
 
 This is the development version of Vim's included syntax highlighting and
