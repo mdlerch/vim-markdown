@@ -15,6 +15,9 @@ endif
 runtime! syntax/html.vim
 unlet! b:current_syntax
 
+syntax include @LATEX syntax/tex.vim
+syn region markdownInlineLatex start="\$" end="\$" keepend contains=@LATEX
+
 if !exists('g:markdown_fenced_languages')
   let g:markdown_fenced_languages = []
 endif
@@ -38,17 +41,17 @@ syn match markdownLineStart "^[<@]\@!" nextgroup=@markdownBlock,htmlSpecialChar
 syn cluster markdownBlock contains=markdownH1,markdownH2,markdownH3,markdownH4,markdownH5,markdownH6,markdownBlockquote,markdownListMarker,markdownOrderedListMarker,markdownCodeBlock,markdownRule
 syn cluster markdownInline contains=markdownLineBreak,markdownLinkText,markdownItalic,markdownBold,markdownCode,markdownEscape,@htmlTop,markdownError
 
-syn match markdownH1 "^.\+\n=\+$" contained contains=@markdownInline,markdownHeadingRule,markdownAutomaticLink
-syn match markdownH2 "^.\+\n-\+$" contained contains=@markdownInline,markdownHeadingRule,markdownAutomaticLink
+syn match markdownH1 "^.\+\n=\+$" contained contains=@markdownInline,markdownHeadingRule,markdownAutomaticLink,markdownInlineLatex
+syn match markdownH2 "^.\+\n-\+$" contained contains=@markdownInline,markdownHeadingRule,markdownAutomaticLink,markdownInlineLatex
 
 syn match markdownHeadingRule "^[=-]\+$" contained
 
-syn region markdownH1 matchgroup=markdownHeadingDelimiter start="##\@!"      end="#*\s*$" keepend oneline contains=@markdownInline,markdownAutomaticLink contained
-syn region markdownH2 matchgroup=markdownHeadingDelimiter start="###\@!"     end="#*\s*$" keepend oneline contains=@markdownInline,markdownAutomaticLink contained
-syn region markdownH3 matchgroup=markdownHeadingDelimiter start="####\@!"    end="#*\s*$" keepend oneline contains=@markdownInline,markdownAutomaticLink contained
-syn region markdownH4 matchgroup=markdownHeadingDelimiter start="#####\@!"   end="#*\s*$" keepend oneline contains=@markdownInline,markdownAutomaticLink contained
-syn region markdownH5 matchgroup=markdownHeadingDelimiter start="######\@!"  end="#*\s*$" keepend oneline contains=@markdownInline,markdownAutomaticLink contained
-syn region markdownH6 matchgroup=markdownHeadingDelimiter start="#######\@!" end="#*\s*$" keepend oneline contains=@markdownInline,markdownAutomaticLink contained
+syn region markdownH1 matchgroup=markdownHeadingDelimiter start="##\@!"      end="#*\s*$" keepend oneline contains=@markdownInline,markdownAutomaticLink,markdownInlineLatex contained
+syn region markdownH2 matchgroup=markdownHeadingDelimiter start="###\@!"     end="#*\s*$" keepend oneline contains=@markdownInline,markdownAutomaticLink,markdownInlineLatex contained
+syn region markdownH3 matchgroup=markdownHeadingDelimiter start="####\@!"    end="#*\s*$" keepend oneline contains=@markdownInline,markdownAutomaticLink,markdownInlineLatex contained
+syn region markdownH4 matchgroup=markdownHeadingDelimiter start="#####\@!"   end="#*\s*$" keepend oneline contains=@markdownInline,markdownAutomaticLink,markdownInlineLatex contained
+syn region markdownH5 matchgroup=markdownHeadingDelimiter start="######\@!"  end="#*\s*$" keepend oneline contains=@markdownInline,markdownAutomaticLink,markdownInlineLatex contained
+syn region markdownH6 matchgroup=markdownHeadingDelimiter start="#######\@!" end="#*\s*$" keepend oneline contains=@markdownInline,markdownAutomaticLink,markdownInlineLatex contained
 
 syn match markdownBlockquote ">\%(\s\|$\)" contained nextgroup=@markdownBlock
 
@@ -100,6 +103,15 @@ endif
 syn match markdownEscape "\\[][\\`*_{}()#+.!-]"
 syn match markdownError "\w\@<=_\w\@="
 
+syn region markdownlatexenvironment start="\\begin{[[:graph:]]*}" end="\\end{[[:graph:]]*}" contains=@LATEX keepend
+syn region markdownlatexequation start="\\\[" end="\\\]" contains=@LATEX keepend
+syn region markdownlatexequation2 start="\$\$" end="\$\$" contains=@LATEX keepend
+syn region markdownlatexreflab start="\(\\label{\)\|\(\\ref{\)" end="}" contains=@LATEX keepend
+syn region markdownlatexunum start="\\[sub]*section\*{" end="}" contains=@LATEX keepend
+
+syn match markdownCiteAt "@" contained
+syn match markdownCite "\[@.*\]" contains=markdownCiteAt
+
 hi def link markdownH1                    htmlH1
 hi def link markdownH2                    htmlH2
 hi def link markdownH3                    htmlH3
@@ -126,13 +138,16 @@ hi def link markdownIdDelimiter           markdownLinkDelimiter
 hi def link markdownUrlDelimiter          htmlTag
 hi def link markdownUrlTitleDelimiter     Delimiter
 
-hi def link markdownItalic                htmlItalic
+hi def link markdownItalic                String
 hi def link markdownItalicDelimiter       markdownItalic
-hi def link markdownBold                  htmlBold
+hi def link markdownBold                  String
 hi def link markdownBoldDelimiter         markdownBold
-hi def link markdownBoldItalic            htmlBoldItalic
+hi def link markdownBoldItalic            String
 hi def link markdownBoldItalicDelimiter   markdownBoldItalic
 hi def link markdownCodeDelimiter         Delimiter
+
+hi def link markdownCite                  String
+hi def link markdownCiteAt                Character
 
 hi def link markdownEscape                Special
 hi def link markdownError                 Error
