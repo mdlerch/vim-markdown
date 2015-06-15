@@ -112,12 +112,12 @@ syn region markdownlatexunum start="\\[sub]*section\*{" end="}" contains=@LATEX 
 syn match markdownCiteAt "@" contained
 syn match markdownCite "\[@.*\]" contains=markdownCiteAt
 
-hi def link markdownH1                    htmlH1
-hi def link markdownH2                    htmlH2
-hi def link markdownH3                    htmlH3
-hi def link markdownH4                    htmlH4
-hi def link markdownH5                    htmlH5
-hi def link markdownH6                    htmlH6
+hi def link markdownH1                    markdownRule
+hi def link markdownH2                    markdownRule
+hi def link markdownH3                    markdownRule
+hi def link markdownH4                    markdownRule
+hi def link markdownH5                    markdownRule
+hi def link markdownH6                    markdownRule
 hi def link markdownHeadingRule           markdownRule
 hi def link markdownHeadingDelimiter      Delimiter
 hi def link markdownOrderedListMarker     markdownListMarker
@@ -145,6 +145,7 @@ hi def link markdownBoldDelimiter         markdownBold
 hi def link markdownBoldItalic            String
 hi def link markdownBoldItalicDelimiter   markdownBoldItalic
 hi def link markdownCodeDelimiter         Delimiter
+hi def link markdownCode                  Statement
 
 hi def link markdownCite                  String
 hi def link markdownCiteAt                Character
