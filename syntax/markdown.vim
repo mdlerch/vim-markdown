@@ -109,8 +109,11 @@ syn region markdownlatexequation2 start="\$\$" end="\$\$" contains=@LATEX keepen
 syn region markdownlatexreflab start="\(\\label{\)\|\(\\ref{\)" end="}" contains=@LATEX keepend
 syn region markdownlatexunum start="\\[sub]*section\*{" end="}" contains=@LATEX keepend
 
+syn match markdownlatexnoindent "\\noindent"
+hi def link markdownlatexnoindent markdownEscape
+
 syn match markdownCiteAt "@" contained
-syn match markdownCite "\[@.*\]" contains=markdownCiteAt
+syn match markdownCite "\[@[a-zA-z0-9]*\]" contains=markdownCiteAt
 
 hi def link markdownH1                    markdownRule
 hi def link markdownH2                    markdownRule
