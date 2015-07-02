@@ -103,7 +103,7 @@ endif
 syn match markdownEscape "\\[][\\`*_{}()#+.!-]"
 syn match markdownError "\w\@<=_\w\@="
 
-syn region markdownlatexenvironment start="\\begin{[[:graph:]]*}" end="\\end{[[:graph:]]*}" contains=@LATEX keepend
+syn region markdownlatexenvironment start="\\begin{[[:graph:]]*}\n[^`]" end="\\end{[[:graph:]]*}" contains=@LATEX keepend
 syn region markdownlatexequation start="\\\[" end="\\\]" contains=@LATEX keepend
 syn region markdownlatexequation2 start="\$\$" end="\$\$" contains=@LATEX keepend
 syn region markdownlatexreflab start="\(\\label{\)\|\(\\ref{\)" end="}" contains=@LATEX keepend
