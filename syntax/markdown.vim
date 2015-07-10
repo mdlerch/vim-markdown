@@ -109,6 +109,9 @@ syn region markdownlatexequation2 start="\$\$" end="\$\$" contains=@LATEX keepen
 syn region markdownlatexreflab start="\(\\label{\)\|\(\\ref{\)" end="}" contains=@LATEX keepend
 syn region markdownlatexunum start="\\[sub]*section\*{" end="}" contains=@LATEX keepend
 
+syn match markdownyamlelement "[a-zA-Z]*:" contained
+syn region markdownyaml start="---\n[a-z]" end="---" contains=markdownyamlelement keepend
+
 syn match markdownlatexnoindent "\\noindent"
 hi def link markdownlatexnoindent markdownEscape
 
@@ -152,6 +155,8 @@ hi def link markdownCode                  Statement
 
 hi def link markdownCite                  String
 hi def link markdownCiteAt                Character
+
+hi def link markdownyamlelement           String
 
 hi def link markdownEscape                Special
 hi def link markdownError                 Error
