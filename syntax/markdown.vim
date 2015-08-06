@@ -100,7 +100,7 @@ if main_syntax ==# 'markdown'
   unlet! s:type
 endif
 
-syn match markdownEscape "\\[][\\`*_{}()#+.!-]"
+syn match markdownEscape "\\[][\\`*_{}()#+.!-\$]"
 syn match markdownError "\w\@<=_\w\@="
 
 syn region markdownlatexenvironment start="\\begin{[[:graph:]]*}\n[^`]" end="\\end{[[:graph:]]*}" contains=@LATEX keepend
