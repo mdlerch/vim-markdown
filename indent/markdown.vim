@@ -3,6 +3,8 @@ let b:did_indent = 1
 
 setlocal indentexpr=GetMdIndent()
 
+if exists("*GetMdIndent") | finish | endif
+
 function GetMdIndent()
   let pline = getline(v:lnum - 1)
   let cline = getline(v:lnum)
