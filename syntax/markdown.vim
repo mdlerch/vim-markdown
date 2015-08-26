@@ -134,7 +134,7 @@ hi def link markdownRule                  PreProc
 hi def link markdownFootnote              Typedef
 hi def link markdownFootnoteDefinition    Typedef
 
-hi def link markdownLinkText              htmlLink
+hi def link markdownLinkText              String
 hi def link markdownIdDeclaration         Typedef
 hi def link markdownId                    Type
 hi def link markdownAutomaticLink         markdownUrl
