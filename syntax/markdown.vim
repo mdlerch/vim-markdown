@@ -16,7 +16,7 @@ runtime! syntax/html.vim
 unlet! b:current_syntax
 
 syntax include @LATEX syntax/tex.vim
-syn region markdownInlineLatex start="\$" end="\$" keepend contains=@LATEX
+" syn region markdownInlineLatex start="\$" end="\$" keepend contains=@LATEX
 " syn region markdownEnvironmentLatex start="\\begin{" end="\\end{[:alpha:]*}" keepend contains=@LATEX
 
 if !exists('g:markdown_fenced_languages')
@@ -104,8 +104,9 @@ endif
 syn match markdownEscape "\\[][\\`*_{}()#+.!-\$]"
 syn match markdownError "\w\@<=_\w\@="
 
-syn region markdownlatexenvironment start="\\begin{[[:graph:]]*}" end="\\end{[[:graph:]]*}" contains=@LATEX keepend
+syn region markdownlatexenvironment start="\\begin{\z([[:graph:]]*\)}" end="\\end{\z1}" contains=@LATEX keepend
 syn region markdownlatexequation start="\\\[" end="\\\]" contains=@LATEX keepend
+syn region markdownInlineLatex start="\$" end="\$" keepend contains=@LATEX
 syn region markdownlatexequation2 start="\$\$" end="\$\$" contains=@LATEX keepend
 syn region markdownlatexreflab start="\(\\label{\)\|\(\\ref{\)" end="}" contains=@LATEX keepend
 syn region markdownlatexunum start="\\[sub]*section\*{" end="}" contains=@LATEX keepend
@@ -117,10 +118,11 @@ syn match markdownlatexnoindent "\\noindent"
 hi def link markdownlatexnoindent markdownEscape
 
 syn match markdownCiteAt "@" contained
-syn match markdownCiteSemi ";" contained
-" syn match markdownCiteWord "@\@!\w*" contained
-" syn match markdownCite "\[@[;[:blank][:alnum:]]\+\]" contains=markdownCiteAt,markdownCiteSemi,markdownCiteWord
-syn match markdownCiteOne "@[a-zA-Z0-9]\+" contains=markdownCiteAt
+syn match markdownCiteSep ";" contained
+syn match markdownCitep "\[@[@;[:blank:][:alnum:]]\+\]" contains=markdownCiteAt,markdownCiteSemi
+syn match markdownCitet "@[a-zA-Z0-9]\+" contains=markdownCiteAt
+syn region markdownLaTeXCite start="\\cite[p]*{" end="}" contains=@LATEX keepend
+syn region markdownLaTeXCite2 start="\\cite[p]*\[.*\]{" end="}" contains=@LATEX keepend
 
 hi def link markdownH1                    markdownRule
 hi def link markdownH2                    markdownRule
@@ -157,11 +159,12 @@ hi def link markdownBoldItalicDelimiter   markdownBoldItalic
 hi def link markdownCodeDelimiter         Delimiter
 hi def link markdownCode                  Statement
 
-hi def link markdownCite                  String
+hi def link markdownCitep                 String
+hi def link markdownCitet                 String
 hi def link markdownCiteOne               String
 hi def link markdownCiteAt                Character
-hi def link markdownCiteSemi              Character
-hi def link markdownCiteWord              Character
+hi def link markdownCiteSep               Character
+hi def link markdownCiteWord              String
 
 hi def link markdownyamlelement           String
 
