@@ -105,6 +105,7 @@ syn match markdownEscape "\\[][\\`*_{}()#+.!-\$]"
 syn match markdownError "\w\@<=_\w\@="
 
 syn region markdownlatexenvironment start="\\begin{\z([[:graph:]]*\)}" end="\\end{\z1}" contains=@LATEX keepend
+syn region markdownlatexenvironmentInput start="\\input{" end="}" contains=@LATEX keepend
 syn region markdownlatexequation start="\\\[" end="\\\]" contains=@LATEX keepend
 syn region markdownInlineLatex start="\$" end="\$" keepend contains=@LATEX
 syn region markdownlatexequation2 start="\$\$" end="\$\$" contains=@LATEX keepend
